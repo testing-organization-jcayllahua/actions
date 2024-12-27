@@ -1,0 +1,21 @@
+name: Test Failure Workflow
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Run a successful step
+      run: echo "This step will succeed"
+
+    - name: Run a failing step
+      run: exit 1
+
+    - name: Check failure
+      if: failure()
+      run: echo "A previous step has failed"
