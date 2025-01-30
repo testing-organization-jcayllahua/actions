@@ -1,0 +1,38 @@
+name: Publish Something
+
+on: 
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Select the branch to publish from'
+        required: true
+        default: 'master'
+        type: choice
+        options:
+          - master
+          - dev
+      java_version:
+        description: 'Select Java Version'
+        required: true
+        default: '17'
+        type: choice
+        options:
+          - '11'
+          - '17'
+          - '21'
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Fail if not running from master
+        if: github.event.inputs.branch != 'master'
+        run: |
+          echo "This workflow can only be executed from the master branch"
+          exit 1
+      - name: Print selected option in java
+        run: |
+          JAVA_VERSION=${{  github.event.inputs.java_version }}
+          echo "Using Java: $JAVA_VERSION"
+
+      
