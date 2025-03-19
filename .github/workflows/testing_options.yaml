@@ -1,0 +1,22 @@
+name: "Publish Package"
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Select branch to run the workflow"
+        required: true
+        default: "master"
+        options:
+          - master
+jobs:
+  publish:
+    if: ${{ github.ref == 'refs/heads/master' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Print branch name
+        run: |
+          echo "Running on branch: ${{github.ref_name}}"
