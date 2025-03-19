@@ -6,9 +6,9 @@ on:
       branch:
         description: "Select branch to run the workflow"
         required: true
-        default: "master"
+        default: "main"
         options:
-          - master
+          - main
 jobs:
   publish:
     if: ${{ github.ref == 'refs/heads/master' }}
